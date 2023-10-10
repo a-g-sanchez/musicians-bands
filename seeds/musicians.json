@@ -1,1 +1,14 @@
-[]
+[
+    {
+        "name": "JOJI",
+        "insturment": "Voice"
+    },
+    {
+        "name": "Jack Johnson",
+        "insturment": "Guitar"
+    },
+    {
+        "name": "Baby Keem",
+        "insturment": "Voice"
+    }
+]
