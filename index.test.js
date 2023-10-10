@@ -1,5 +1,8 @@
 const { db } = require('./db');
 const { Band, Musician, Song } = require('./index')
+const bandSeed = require('./seeds/bands.json')
+const musicianSeed = require('./seeds/musicians.json')
+const songSeed = require('./seeds/songs.json')
 
 describe('Band, Musician, and Song Models', () => {
     /**
@@ -10,12 +13,20 @@ describe('Band, Musician, and Song Models', () => {
         // by setting 'force:true' the tables are recreated each time the 
         // test suite is run
         await db.sync({ force: true });
+        await Band.bulkCreate(bandSeed)
+        await Musician.bulkCreate(musicianSeed)
+        await Song.bulkCreate(songSeed)
     })
 
     test('can create a Band', async () => {
         let newBand = await Band.create({name: 'Paramore', genre: 'Punk-Rock'});
 
         expect(newBand).toBeInstanceOf(Band);
+    })
+
+    test('can create a band with a show count', async () => {
+        let newBand = await Band.create({name: 'Fall out Boy', genre: 'Punk-Rock', showCount: 3})
+        expect(newBand.showCount).toBe(3)
     })
 
     test('can create a Musician', async () => {
@@ -53,19 +64,19 @@ describe('Band, Musician, and Song Models', () => {
         let deletedBand = await band2.destroy();
         let allBands = await Band.findAll()
         console.log(allBands)
-        expect(allBands.length).toBe(2);
+        expect(allBands.length).toBe(6);
     })
 
     test('can delete a Musician', async () => {
         let deletedMus = await Musician.destroy({where: {id:1}});
         let allMusicians = await Musician.findAll();
-        expect(allMusicians.length).toBe(1);
+        expect(allMusicians.length).toBe(4);
     })
 
     test('can delete a Song', async () => {
         let song = await Song.findByPk(1)
         await song.destroy()
         let allSongs = await Song.findAll()
-        expect(allSongs.length).toBe(0)
+        expect(allSongs.length).toBe(3)
     })
 })
