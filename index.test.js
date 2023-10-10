@@ -14,13 +14,13 @@ describe('Band, Musician, and Song Models', () => {
 
     test('can create a Band', async () => {
         let newBand = await Band.create({name: 'Paramore', genre: 'Punk-Rock'});
-        console.log(newBand)
+
         expect(newBand).toBeInstanceOf(Band);
     })
 
     test('can create a Musician', async () => {
-        // TODO - test creating a musician
-        expect('NO TEST').toBe('EXPECTED VALUE HERE');
+        let newMusician = await Musician.create({name:'ASAP Rocky', instrument: 'voice'});
+        expect(newMusician).toBeInstanceOf(Musician);
     })
 
     test('can update a Band', async () => {
@@ -31,8 +31,9 @@ describe('Band, Musician, and Song Models', () => {
     })
 
     test('can update a Musician', async () => {
-        // TODO - test updating a musician
-        expect('NO TEST').toBe('EXPECTED VALUE HERE');
+        let musician1 = await Musician.create({name: 'Kendrick', instrument: 'voice'});
+        await musician1.update({instrument: 'drums'})
+        expect(musician1.instrument).toBe('drums');
     })
 
     test('can delete a Band', async () => {
@@ -45,7 +46,8 @@ describe('Band, Musician, and Song Models', () => {
     })
 
     test('can delete a Musician', async () => {
-        // TODO - test deleting a musician
-        expect('NO TEST').toBe('EXPECTED VALUE HERE');
+        let deletedMus = await Musician.destroy({where: {id:1}});
+        let allMusicians = await Musician.findAll();
+        expect(allMusicians.length).toBe(1);
     })
 })
