@@ -1,1 +1,14 @@
-[]
+[
+    {
+        "name": "Nirvana", 
+        "genre": "Rock"
+    }, 
+    {
+        "name": "Blink-182", 
+        "genre": "Alt"
+    }, 
+    {
+        "name": "AC/CD", 
+        "genre": "Rock"
+    }
+]
