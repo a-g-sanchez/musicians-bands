@@ -1,1 +1,17 @@
-[]
+[
+    {
+        "title": "Slow Dancing in the Dark",
+        "year": 2012,
+        "length": 2.45
+    },
+    {
+        "title": "Attention",
+        "year": 2014,
+        "length": 3.10
+    },
+    {
+        "title": "Family Ties",
+        "year": 2022,
+        "length": 4.15
+    }
+]
