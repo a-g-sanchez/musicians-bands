@@ -1,5 +1,5 @@
 const { db } = require('./db');
-const { Band, Musician, Song } = require('./index')
+const { Band, Musician, Song, Manager } = require('./index')
 const bandSeed = require('./seeds/bands.json')
 const musicianSeed = require('./seeds/musicians.json')
 const songSeed = require('./seeds/songs.json')
@@ -113,5 +113,27 @@ describe('Band, Musician, and Song Models', () => {
 
         expect(bandSongs.length).toBe(2);
         expect(songBands.length).toBe(2);
+    })
+
+    test('Manger has one band and band has one manager', async ()=> {
+        const newManager = await Manager.create({
+            name: 'Funky Frank',
+            email: 'ff@email.com',
+            salary: 10,
+            dateHired: '1998-04-08'
+        })
+
+        const band = await Band.findByPk(3)
+
+        await newManager.setBand(band)
+        // expect(managerBand).toBeInstanceOf(Band)
+        // console.log(JSON.stringify(managerBand, null, 2))
+        const managerWithBand = await Manager.findByPk(1, {
+            include: Band
+        })
+        expect(managerWithBand.Band).toBeInstanceOf(Band)
+        expect(managerWithBand.Band.name).toBe(band.name)
+        // console.log(JSON.stringify(managerWithBand, null, 2))
+
     })
 })
