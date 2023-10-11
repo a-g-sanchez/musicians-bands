@@ -14,6 +14,8 @@ Musician.belongsTo(Band);
 Band.belongsToMany(Song, {through: "song-band"});
 Song.belongsToMany(Band, {through: "song-band"});
 
+Manager.hasOne(Band)
+Band.belongsTo(Manager)
 
 
 
