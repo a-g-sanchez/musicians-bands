@@ -79,4 +79,20 @@ describe('Band, Musician, and Song Models', () => {
         let allSongs = await Song.findAll()
         expect(allSongs.length).toBe(3)
     })
+
+    //Association Tests
+
+    test('Band has musicians, and musicians belong to a band', async()=>{
+        //await db.sync({ force: true });
+        
+
+        let band = await Band.findByPk(1);
+        let musician1 = await Musician.findByPk(1);
+        let musician2 = await Musician.findByPk(2);
+        let musician3 = await Musician.findByPk(3);
+        console.log(band, musician1);
+        await band.addMusicians([musician1, musician2, musician3]);
+        
+        expect(band.Musicians).toBe([musician1, musician2, musician3]);
+    })
 })
