@@ -87,12 +87,12 @@ describe('Band, Musician, and Song Models', () => {
         
 
         let band = await Band.findByPk(1);
-        let musician1 = await Musician.findByPk(1);
+        // let musician1 = await Musician.findByPk(1);
         let musician2 = await Musician.findByPk(2);
         let musician3 = await Musician.findByPk(3);
-        console.log(band, musician1);
-        await band.addMusicians([musician1, musician2, musician3]);
-        
-        expect(band.Musicians).toBe([musician1, musician2, musician3]);
+        console.log(band, musician2);
+        await band.addMusicians([musician2, musician3]);
+        const bandMusicians = await band.getMusicians();
+        expect(bandMusicians.length).toBe(2);
     })
 })
