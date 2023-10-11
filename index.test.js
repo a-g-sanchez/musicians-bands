@@ -63,7 +63,7 @@ describe('Band, Musician, and Song Models', () => {
         let band2 = await Band.create({name:'All American Rejects', genre:'Punk'});
         let deletedBand = await band2.destroy();
         let allBands = await Band.findAll()
-        console.log(allBands)
+        // console.log(allBands)
         expect(allBands.length).toBe(6);
     })
 
@@ -90,9 +90,28 @@ describe('Band, Musician, and Song Models', () => {
         // let musician1 = await Musician.findByPk(1);
         let musician2 = await Musician.findByPk(2);
         let musician3 = await Musician.findByPk(3);
-        console.log(band, musician2);
+        // console.log(band, musician2);
         await band.addMusicians([musician2, musician3]);
         const bandMusicians = await band.getMusicians();
         expect(bandMusicians.length).toBe(2);
+    })
+
+    test('Band and song have a many to many association', async () => {
+        let band = await Band.findByPk(1);
+        let band2 = await Band.findByPk(2);
+
+        let song = await Song.findByPk(2);
+        let song2 = await Song.findByPk(3);
+
+        await band.addSongs([song, song2]);
+        await song.addBands([band, band2]);
+
+        // console.log(band, song)
+
+        const bandSongs = await band.getSongs();
+        const songBands = await song.getBands();
+
+        expect(bandSongs.length).toBe(2);
+        expect(songBands.length).toBe(2);
     })
 })
